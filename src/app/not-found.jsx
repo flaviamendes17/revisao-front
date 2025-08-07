@@ -1,52 +1,100 @@
-"use client";
+import { Roboto } from 'next/font/google';
 
-import React from 'react';
+const robotoBold = Roboto({ weight: '700', subsets: ['latin'] });
+const robotoRegular = Roboto({ weight: '400', subsets: ['latin'] });
 
-const NotFound = () => {
-  return (
-    <div style={styles.container}>
-      <img 
-        src="/images/computador-quebrado.png" 
-        alt="omputador quebrado" 
-        style={styles.image} 
-      />
-      <h1 style={styles.title}>ERRO 404</h1>
-      <p style={styles.message}>
-        Poxa! Não conseguimos encontrar a página que você procurava. Verifique o endereço e tente novamente.
-      </p>
-    </div>
-  );
-};
+export default function NotFound() {
+    const emojis = [
+      { emoji: '😕', top: '10%', left: '15%' },
+      { emoji: '😢', top: '20%', left: '70%' },
+      { emoji: '🥺', top: '75%', left: '80%' },
+      { emoji: '😔', top: '85%', left: '10%' },
+      { emoji: '😕', top: '55%', left: '65%' },
+      { emoji: '😢', top: '40%', left: '25%' },
+    ];
 
-const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100vh',
-    background: 'linear-gradient(to bottom right, #FFC1E3, #FFD59E)',
-    fontFamily: 'Arial, sans-serif',
-    textAlign: 'center',
-  },
-  image: {
-    width: '150px', 
-    height: '150px', 
-    marginBottom: '1rem', 
-  },
-  title: {
-    fontSize: '4rem',
-    color: '#FF4081',
-    textShadow: '1px 1px 3px rgba(0, 0, 0, 0.2)',
-    marginBottom: '1rem',
-    fontFamily: "'Quicksand-bold, -serif",
-    fontWeight: '700',
-  },
-  message: {
-    fontSize: '1.2rem',
-    color: '#333',
-    marginBottom: '2rem',
-  },
-};
+    const image = "/images/computador-quebrado.png"; 
 
-export default NotFound;
+    return (
+        <div
+            style={{
+                minHeight: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                background: 'linear-gradient(135deg, #FFD6E0 0%, #FFFACD 100%)',
+                position: 'relative',
+                overflow: 'hidden',
+            }}
+        >
+            <img
+                src={image}
+                alt="Computador quebrado"
+                style={{
+                    width: '180px',
+                    marginBottom: '1.5rem',
+                    zIndex: 1,
+                }}
+            />
+            {emojis.map((item, idx) => (
+                <span
+                    key={idx}
+                    style={{
+                        position: 'absolute',
+                        top: item.top,
+                        left: item.left,
+                        fontSize: '2.5rem',
+                        pointerEvents: 'none',
+                        userSelect: 'none',
+                        opacity: 0.7,
+                    }}
+                >
+                    {item.emoji}
+                </span>
+            ))}
+            <h1
+                className={robotoBold.className}
+                style={{
+                    fontSize: '6rem',
+                    color: '#E75480',
+                    margin: 0,
+                    textShadow: '0 6px 12px rgba(16, 6, 9, 0.25)',
+                }}
+            >
+                Erro 404
+            </h1>
+            <p
+                className={robotoRegular.className}
+                style={{
+                    fontSize: '1.0rem',
+                    color: '#E75480',
+                    marginTop: '2rem',
+                    textAlign: 'center',
+                    maxWidth: '500px',
+                }}
+            >
+                Poxa! O caminho que você tentou acessar não existe. Por favor, verifique o endereço e tente novamente. 
+            </p>
+            <a
+                href="/"
+                style={{
+                    marginTop: '2.5rem',
+                    padding: '0.75rem 2rem',
+                    background: '#E75480',
+                    color: '#fff',
+                    borderRadius: '2rem',
+                    textDecoration: 'none',
+                    fontWeight: 700,
+                    fontSize: '1.1rem',
+                    boxShadow: '0 2px 8px rgba(16, 6, 9, 0.15)',
+                    transition: 'background 0.2s',
+                    display: 'inline-block',
+                }}
+                className={robotoBold.className}
+            >
+                OK! Voltar para a página inicial
+            </a>
+        </div>
+    );
+}
